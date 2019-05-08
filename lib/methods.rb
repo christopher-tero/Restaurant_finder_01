@@ -24,8 +24,7 @@ def select_user
   end
   case selection
   when valid_user
-    puts "Hello #{selection}! How can we help you today?".white_on_magenta
-    puts ""
+    puts "\nHello #{selection}! How can we help you today?".white_on_magenta
   when "new user"
     new_user
   when "exit"
@@ -34,6 +33,10 @@ def select_user
     puts "please enter a valid selection\n".red
     select_user
   end
+end
+
+def selected_user
+
 end
 
 # def find_user(selection)
@@ -82,36 +85,49 @@ end
 
 def top_10
   puts "You selected top 10 restaurants"
-  # Restaurants.all.reduce(1..10) do |x, restaurant|
-  #   puts "#{x} - #{restaurant.name}"
-  #   x += 1
-  # end
+  top_ten = Restaurants.all.map do |restaurant|
+    if restaurant.rating.to_f >= 4.5
+      restaurant.name
+    end
+  end
+
+  puts top_ten.take(10)
 end
 
 def cuisine
   puts "You selected cuisine; please select one of the following:"
-  puts "American"
-  puts "Mexican"
-  puts "Japanese"
-  puts "Italian"
+  puts "1 - American"
+  puts "2 - Mexican"
+  puts "3 - Japanese"
+  puts "4 - Italian"
   cuisine_choice = gets.chomp
+  case cuisine_choice
+  when "1"
+    c_choice = "American"
+  when "2"
+    c_choice = "Mexican"
+  when "3"
+    c_choice = "Japanese"
+  when "4"
+    c_choice = "Italian"
+  end
   cuisine_random = Restaurants.all.select do |restaurant|
-    restaurant.name if restaurant.cuisine == cuisine_choice
+    restaurant.name if restaurant.cuisine == c_choice
   end
   case cuisine_choice
-    when "American"
+  when "1"
       puts "Random American restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
-    when "Mexican"
+    when "2"
       puts "Random Mexican restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
-    when "Japanese"
+    when "3"
       puts "Random Japanese restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
-    when "Italian"
+    when "4"
       puts "Random Italian restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
@@ -124,45 +140,28 @@ end
 ### Tested and working w/o db ###
 def price
   puts "You selected price; please select your price bracket:"
-  puts "$ - Budget"
-  puts "$$ - Mid-level"
-  puts "$$$ - Extravavant"
+  puts "1 - Budget"
+  puts "2 - Mid-level"
+  puts "3 - Extravavant"
   price_range = gets.chomp
   price_random = Restaurants.all.select do |restaurant|
-    restaurant if restaurant.price == price_range
+    restaurant if restaurant.price.length == price_range.to_i
   end
   $restaurant_selection = price_random.sample.name
-  #binding.pry
   case price_range
-    when "$"
+  when "1"
       puts "You selected budget restaurants"
       puts "#{$restaurant_selection}"
-      #puts "#{price_random.sample.name}"
-      # Add a save function
-    when "$$"
+    when "2"
       puts "You selected moderately priced restaurants"
       puts "#{$restaurant_selection}"
-      #puts "#{price_random.sample.name}"
-      # Add a save function
-    when "$$$"
+    when "3"
       puts "You selected expensive restaurants"
       puts "#{$restaurant_selection}"
-      #puts "#{price_random.sample.name}"
-      # Add a save function
     else
       puts "Please enter a valid price range:"
       price
   end
-
-end
-
-def price_budget
-end
-
-def price_moderate
-end
-
-def price_expensive
 end
 
 def rating ### Working for selection, but need to return string instead of item ###
