@@ -12,4 +12,4 @@ ActiveRecord::Base.establish_connection({
 
 main
 
-binding.pry
+# binding.pry
