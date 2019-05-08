@@ -16,18 +16,9 @@ ActiveRecord::Schema.define(version: 2019_05_07_231010) do
     t.text "name"
   end
 
-  create_table "restaurant_list", id: false, force: :cascade do |t|
+  create_table "restaurants", force: :cascade do |t|
     t.text "name"
     t.text "location"
-    t.text "cuisine"
-    t.text "price"
-    t.text "rating"
-  end
-
-  create_table "restaurants", force: :cascade do |t|
-    t.text "user"
-    t.text "name"
-    t.text "city"
     t.text "cuisine"
     t.text "price"
     t.text "rating"
