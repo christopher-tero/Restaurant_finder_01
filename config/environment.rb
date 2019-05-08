@@ -7,7 +7,7 @@ require_all "./models"
 
 ActiveRecord::Base.establish_connection({
   adapter: "sqlite3",
-  database: "./db/restaurant_list_curated"
+  database: "./db/restaurant_list.db"
   })
 
 binding.pry
