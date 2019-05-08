@@ -1,5 +1,3 @@
-
-
 require 'pry'
 #note to us we have a global variable "$location" ***caution***
 #/// Intro ///
@@ -43,15 +41,19 @@ def select_user
   end
   case selection
   when valid_user
-    puts "Hello #{selection}! How can we help you today?".white_on_magenta
+    puts "\nHello #{selection}! How can we help you today?".white_on_magenta
   when "new user"
     new_user
   when "exit"
     exit
   else
-    puts "please enter a valid selection".red
+    puts "please enter a valid selection\n".red
     select_user
   end
+end
+
+def selected_user
+
 end
 
 # def find_user(selection)
