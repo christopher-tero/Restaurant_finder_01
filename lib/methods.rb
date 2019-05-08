@@ -3,7 +3,9 @@ require 'pry'
 #/// Intro ///
 
 def intro
-  puts "Welcome to our restaurant finder! Please enter your name, type 'new user', or exit.".white_on_blue
+  puts "\n\n"
+  puts "\n\nWelcome to our restaurant finder! Please enter your name, type 'new user', or exit.\n".white_on_blue
+  puts ""
 end
 
 def user_list
@@ -23,12 +25,13 @@ def select_user
   case selection
   when valid_user
     puts "Hello #{selection}! How can we help you today?".white_on_magenta
+    puts ""
   when "new user"
     new_user
   when "exit"
     exit
   else
-    puts "please enter a valid selection".red
+    puts "please enter a valid selection\n".red
     select_user
   end
 end
@@ -93,9 +96,8 @@ def cuisine
   puts "Italian"
   cuisine_choice = gets.chomp
   cuisine_random = Restaurants.all.select do |restaurant|
-    #binding.pry
     restaurant.name if restaurant.cuisine == cuisine_choice
-  end ##### This iterator should work for all below cases #####
+  end
   case cuisine_choice
     when "American"
       puts "Random American restaurant: "
