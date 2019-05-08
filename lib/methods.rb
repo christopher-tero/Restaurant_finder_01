@@ -80,6 +80,7 @@ def main_menu
   puts "2 - Select a cuisine".green
   puts "3 - Select a price bracket".green
   puts "4 - Select a rating bracket".green
+  puts "5 - Completely Random".green
   #puts "5 - My favorites".green
   #puts "6 - My blacklist".green
   puts "exit".green
@@ -94,7 +95,7 @@ def main_menu
   when 4
     rating
   when 5
-    favorites
+    city_restaurants
   when exit
     exit
   else
@@ -221,8 +222,13 @@ def favorites
   puts "You selected favorites; your favorite restaurants are:"
 end
 
-def random_selector
+def city_restaurants
+  rando = Restaurants.all.select do |restaurant|
+    restaurant.location.downcase == $location
+  end
+  puts rando.sample.name
 end
+
 
 ### Optional additions:
 
