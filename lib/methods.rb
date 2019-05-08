@@ -1,9 +1,11 @@
+
+
 require 'pry'
 
 #/// Intro ///
 
 def intro
-  puts "Welcome to our restaurant finder! Please enter your name, type 'new user', or exit.".white_on_blue
+  puts "Welcome to Restaurants Sleuth! Please enter your name, type 'new user', or exit.".white_on_blue
 end
 
 def user_list
@@ -11,6 +13,7 @@ def user_list
     user.name
   end
 end
+
 
 #/// Select user: ///
 
@@ -43,9 +46,13 @@ end
 def new_user
     puts "Welcome to our app! Please enter your name:".cyan
     new_name = gets.chomp
-    puts ""
-    puts "Hello #{new_name}!"
-    User.create(name: new_name)
+    if user_list.include?(new_name)
+      puts "Sorry! This User name is already taken. Please try again"
+      new_user
+    else
+      puts "\nHello #{new_name}!"
+      User.create(name: new_name)
+    end
 end
 
 def main_menu
