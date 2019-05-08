@@ -1,21 +1,10 @@
 require 'pry'
-# IN INTRO
-# => Welcome <.....>: what is your user name?
-# =>  Selection from users or new user
-# => Hello <user>! How can we help you today?
 
+#/// Intro ///
 
 def intro
-  puts "Welcome to our restaurant finder! What is your user name?".white_on_blue
-end
-
-#/// Intro for option B select_user ///
-
-def intro_alt
   puts "Welcome to our restaurant finder! Please enter your name, type 'new user', or exit.".white_on_blue
 end
-
-#////////// end option B intro //////////
 
 def user_list
   User.all.map do |user|
@@ -23,18 +12,16 @@ def user_list
   end
 end
 
-#/// Option A for select_user ///
+#/// Select user: ///
 
 def select_user
-  user_list.each do |user|
-    puts user.cyan
-  end
-  puts "new user".cyan
-  puts "exit".cyan
   selection = gets.chomp
   #binding.pry
+  if user_list.include?(selection)
+    valid_user = selection
+  end
   case selection
-  when find_user(selection)
+  when valid_user
     puts "Hello #{selection}! How can we help you today?".white_on_magenta
   when "new user"
     new_user
@@ -46,37 +33,19 @@ def select_user
   end
 end
 
-#/// Option B for select new user: ///
-
-def select_user_alt
-  selection = gets.chomp
-  #binding.pry
-  case selection
-  when find_user(selection)
-    puts "Hello #{selection}! How can we help you today?".white_on_magenta
-  when "new user"
-    new_user
-  when "exit"
-    exit
-  else
-    puts "please enter a valid selection".red
-    select_user
-  end
-end
-
-#////////// end option B //////////
-
-def find_user(selection)
-  user_list.find do |person|
-    person == selection
-  end
-end
+# def find_user(selection)
+#   User.all.find do |person|
+#     #binding.pry
+#     person.name == selection
+#   end
+# end
 
 def new_user
     puts "Welcome to our app! Please enter your name:".cyan
     new_name = gets.chomp
+    puts ""
     puts "Hello #{new_name}!"
-    User.create(new_name)
+    User.create(name: new_name)
 end
 
 def main_menu
@@ -131,15 +100,19 @@ def cuisine
     when "American"
       puts "Random American restaurant: "
       puts "#{cuisine_random.sample.name}"
+      # Add a save function
     when "Mexican"
       puts "Random Mexican restaurant: "
       puts "#{cuisine_random.sample.name}"
+      # Add a save function
     when "Japanese"
       puts "Random Japanese restaurant: "
       puts "#{cuisine_random.sample.name}"
+      # Add a save function
     when "Italian"
       puts "Random Italian restaurant: "
       puts "#{cuisine_random.sample.name}"
+      # Add a save function
     else
       puts "Please enter a valid selection"
       cuisine
@@ -154,23 +127,31 @@ def price
   puts "$$$ - Extravavant"
   price_range = gets.chomp
   price_random = Restaurants.all.select do |restaurant|
-    restaurant if restaurant.cost == price_range
+    restaurant if restaurant.price == price_range
   end
+  $restaurant_selection = price_random.sample.name
   #binding.pry
   case price_range
     when "$"
       puts "You selected budget restaurants"
-      puts "#{price_random.sample.name}"
+      puts "#{$restaurant_selection}"
+      #puts "#{price_random.sample.name}"
+      # Add a save function
     when "$$"
       puts "You selected moderately priced restaurants"
-      puts "#{price_random.sample.name}"
+      puts "#{$restaurant_selection}"
+      #puts "#{price_random.sample.name}"
+      # Add a save function
     when "$$$"
       puts "You selected expensive restaurants"
-      puts "#{price_random.sample.name}"
+      puts "#{$restaurant_selection}"
+      #puts "#{price_random.sample.name}"
+      # Add a save function
     else
       puts "Please enter a valid price range:"
       price
   end
+
 end
 
 def price_budget
@@ -192,12 +173,15 @@ def rating ### Working for selection, but need to return string instead of item 
     when "3"
       puts "Three star restaurant:"
       puts "#{stars_random.sample.name}"
+      # Add a save function
     when "4"
       puts "Four star restaurant:"
       puts "#{stars_random.sample.name}"
+      # Add a save function
     when "5"
       puts "Five star restaurant:"
       puts "#{stars_random.sample.name}"
+      # Add a save function
     else
       "Please enter a valid input"
       rating
@@ -214,49 +198,3 @@ end
 ### Optional additions:
 
 # Option to add a restaurant to the list
-
-### Original method in case there are problems with condensed version above ###
-# def cuisine
-#   puts "You selected cuisine; please select one of the following:"
-#   puts "American"
-#   puts "Mexican"
-#   puts "Japanese"
-#   puts "Italian"
-#   cuisine_choice = gets.chomp
-#   cuisine_random = Restaurants.all.select do |restaurant|
-#     restaurant if restaurant.cuisine == cuisine_choice
-#   end ##### This iterator should work for all below cases #####
-#   case cuisine_choice
-#     when "American"
-#       puts "Random American restaurant: "
-#       american = Restaurants.all.select do |restaurant|
-#         restaurant if restaurant.cuisine == "American"
-#       end
-#       american.sample
-#       ### puts "#{cuisine_random.sample}" if cuisine_random select works
-#     when "Mexican"
-#       puts "Random Mexican restaurant: "
-#       mexican = Restaurants.all.select do |restaurant|
-#         restaurant if restaurant.cuisine == "Mexican"
-#       end
-#       mexican.sample
-#       ### puts "#{cuisine_random.sample}" if cuisine_random select works
-#     when "Japanese"
-#       puts "Random Japanese restaurant: "
-#       japanese = Restaurants.all.select do |restaurant|
-#         restaurant if restaurant.cuisine == "Japanese"
-#       end
-#       japanese.sample
-#       ### puts "#{cuisine_random.sample}" if cuisine_random select works
-#     when "Italian"
-#       puts "Random Italian restaurant: "
-#       italian = Restaurants.all.select do |restaurant|
-#         restaurant if restaurant.cuisine == "Italian"
-#       end
-#       italian.sample
-#       ### puts "#{cuisine_random.sample}" if cuisine_random select works
-#     else
-#       puts "Please enter a valid selection"
-#       cuisine
-#   end
-# end
