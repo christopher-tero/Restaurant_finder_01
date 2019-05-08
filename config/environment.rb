@@ -11,9 +11,3 @@ ActiveRecord::Base.establish_connection({
   })
 
 main
-
-<<<<<<< HEAD
-#binding.pry
-=======
-# binding.pry
->>>>>>> 8c2ef5078abf4a46365274032efe31353c34a33c
