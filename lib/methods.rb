@@ -1,23 +1,40 @@
 require 'pry'
-
+#note to us we have a global variable "$location" ***caution***
 #/// Intro ///
 
 def intro
-  puts "\n\n"
-  puts "\n\nWelcome to our restaurant finder! Please enter your name, type 'new user', or exit.\n".white_on_blue
-  puts ""
+  puts "Welcome to Restaurant Sleuth! Please enter city.".white_on_blue
+end
+
+def available_cities
+  our_cities = Restaurants.all.map do |restaurant|
+    restaurant.location.downcase
+  end
+  our_cities.uniq
+end
+
+def city_selector
+  $location = gets.chomp.downcase
+  # binding.pry
+  if available_cities.include?($location)
+    puts "Thank you".red
+  else
+    puts "Sorry we are not available in your area yet, please vist us at a later time!"
+    exit
+  end
 end
 
 def user_list
   User.all.map do |user|
-    user.name
+    user.name.downcase
   end
 end
 
 #/// Select user: ///
 
 def select_user
-  selection = gets.chomp
+  puts "Please enter your name, type 'new user', or exit."
+  selection = gets.chomp.downcase
   #binding.pry
   if user_list.include?(selection)
     valid_user = selection
@@ -49,10 +66,15 @@ end
 def new_user
     puts "Welcome to our app! Please enter your name:".cyan
     new_name = gets.chomp
-    puts ""
-    puts "Hello #{new_name}!"
-    User.create(name: new_name)
+    if user_list.include?(new_name)
+      puts "Sorry! This User name is already taken. Please try again"
+      new_user
+    else
+      puts "\nHello #{new_name}!"
+      User.create(name: new_name)
+    end
 end
+
 
 def main_menu
   puts "Please select a number option from the menu below:".green
@@ -83,51 +105,58 @@ def main_menu
   end
 end
 
+def top_restaurant_name
+  Restaurants.all.sort_by do |restaurant|
+    restaurant.rating
+  end
+end
+
 def top_10
   puts "You selected top 10 restaurants"
-  top_ten = Restaurants.all.map do |restaurant|
-    if restaurant.rating.to_f >= 4.5
+  best_rest_name = top_restaurant_name.map do |restaurant|
+    # binding.pry
+    if restaurant.location.downcase == $location
       restaurant.name
     end
   end
-
-  puts top_ten.take(10)
+  puts best_rest_name.compact.last(10)
 end
 
+
 def cuisine
-  puts "You selected cuisine; please select one of the following:"
+  puts "You selected cuisine; please select one of the following numbers:"
   puts "1 - American"
   puts "2 - Mexican"
   puts "3 - Japanese"
   puts "4 - Italian"
-  cuisine_choice = gets.chomp
-  case cuisine_choice
-  when "1"
-    c_choice = "American"
-  when "2"
-    c_choice = "Mexican"
-  when "3"
-    c_choice = "Japanese"
-  when "4"
-    c_choice = "Italian"
+  cuisine_choice = gets.chomp.to_i
+  if cuisine_choice == 1
+    cuisine_selection = "American"
+  elsif cuisine_choice == 2
+    cuisine_selection = "Mexican"
+  elsif cuisine_choice == 3
+    cuisine_selection = "Japanese"
+  elsif cuisine_choice == 4
+    cuisine_selection = "Italian"
   end
+  cuisine_selection
   cuisine_random = Restaurants.all.select do |restaurant|
-    restaurant.name if restaurant.cuisine == c_choice
-  end
-  case cuisine_choice
-  when "1"
+    restaurant.name if restaurant.cuisine == cuisine_selection
+  end ##### This iterator should work for all below cases #####
+  case cuisine_choice.to_i
+  when 1
       puts "Random American restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
-    when "2"
+    when 2
       puts "Random Mexican restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
-    when "3"
+    when 3
       puts "Random Japanese restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
-    when "4"
+    when 4
       puts "Random Italian restaurant: "
       puts "#{cuisine_random.sample.name}"
       # Add a save function
@@ -168,8 +197,9 @@ def rating ### Working for selection, but need to return string instead of item 
   puts "You selected rating; please select 3, 4, or 5 stars"
   rating_selection = gets.chomp
   stars_random = Restaurants.all.select do |restaurant|
-    restaurant if restaurant.rating == rating_selection.to_i
+    restaurant if restaurant.rating.to_i == rating_selection.to_i
   end
+  #binding.pry
   case rating_selection
     when "3"
       puts "Three star restaurant:"
