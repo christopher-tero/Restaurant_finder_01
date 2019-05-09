@@ -25,3 +25,7 @@ This selection allows the user to choose a rating range, and returns a restauran
 ## Random ##
 
 This selection will choose a restaurant for the user at complete random, regardless of cuisine, cost, or rating.
+
+## My Favorites ##
+
+This selection will return the users saved restaurants for all locations.
