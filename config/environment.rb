@@ -13,6 +13,9 @@ ActiveRecord::Base.establish_connection({
   database: "./db/restaurant_list.db"
   })
 
+<<<<<<< HEAD
 
   # binding.pry
+=======
+>>>>>>> master
 main

@@ -1,5 +1,3 @@
-
-
 require 'pry'
 #note to us we have a global variable "$location" and "$name" ***caution***
 #/// Intro ///
@@ -46,8 +44,6 @@ def city_selector
   end
 end
 
-#/// Select user: ///
-
 def select_user
   puts "\n\n".white_on_blue
   print "Please enter your name, type 'new user', or exit.".center(85).white_on_blue
@@ -83,7 +79,6 @@ def new_user
       User.create(name: $name)
     end
 end
-
 
 def main_menu
   puts "\n"
@@ -199,7 +194,6 @@ def cuisine
     end_of_method
   end
 
-### Tested and working w/o db ###
 def price
   puts "\n".white_on_magenta
   print "You selected price; please select your price bracket:".center(85).white_on_magenta
@@ -351,4 +345,5 @@ end
 
 ### Optional additions:
 
+# Add a favorites list
 # Option to add a restaurant to the list
