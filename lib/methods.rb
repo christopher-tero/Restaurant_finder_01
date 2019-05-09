@@ -3,7 +3,9 @@ require 'pry'
 #/// Intro ///
 
 def intro
-  puts "Welcome to Restaurant Sleuth! Please enter city.".white_on_blue
+  puts "\n\n".white_on_blue
+  print "Welcome to Restaurant Sleuth! Please enter city.".center(85).white_on_blue
+  puts "\n\n".white_on_blue
 end
 
 def available_cities
@@ -17,9 +19,11 @@ def city_selector
   $location = gets.chomp.downcase
   # binding.pry
   if available_cities.include?($location)
-    puts "Thank you".red
+    puts "\n".white_on_green
+    print "Thank you!".center(85).white_on_green
+    puts "\n".white_on_green
   else
-    puts "Sorry we are not available in your area yet, please vist us at a later time!"
+    puts "Sorry we are not available in your area yet, please vist us at a later time!".center(85).red
     exit
   end
 end
@@ -33,7 +37,9 @@ end
 #/// Select user: ///
 
 def select_user
-  puts "Please enter your name, type 'new user', or exit."
+  puts "\n\n".white_on_blue
+  print "Please enter your name, type 'new user', or exit.".center(85).white_on_blue
+  puts "\n\n".white_on_blue
   selection = gets.chomp.downcase
   #binding.pry
   if user_list.include?(selection)
@@ -41,13 +47,17 @@ def select_user
   end
   case selection
   when valid_user
-    puts "\nHello #{selection}! How can we help you today?".white_on_magenta
+    puts "\n".white_on_magenta
+    print "Hello #{selection}! How can we help you today?".center(85).white_on_magenta
+    puts "\n".white_on_magenta
   when "new user"
     new_user
   when "exit"
     exit
   else
-    puts "please enter a valid selection\n".red
+    puts "\n".center(85).white_on_red
+    print "Please enter a valid selection".center(85).white_on_red
+    puts "\n".center(85).white_on_red
     select_user
   end
 end
@@ -77,15 +87,18 @@ end
 
 
 def main_menu
-  puts "Please select a number option from the menu below:".green
-  puts "1 - Top 10 rated restaurants".green
-  puts "2 - Select a cuisine".green
-  puts "3 - Select a price bracket".green
-  puts "4 - Select a rating bracket".green
-  puts "5 - Completely Random".green
+  puts "\n"
+  puts "Please select a number option from the menu below:".center(85).green
+  puts "\n"
+  puts "1 - Top 10 rated restaurants".center(85).green
+  puts "2 - Select a cuisine        ".center(85).green
+  puts "3 - Select a price bracket  ".center(85).green
+  puts "4 - Select a rating bracket ".center(85).green
+  puts "5 - Completely Random       ".center(85).green
   #puts "5 - My favorites".green
   #puts "6 - My blacklist".green
-  puts "exit".green
+  puts "exit".center(85).green
+  puts "\n"
   selection = gets.chomp
   case selection.to_i
   when 1
@@ -113,7 +126,11 @@ def top_restaurant_name
 end
 
 def top_10
-  puts "You selected top 10 restaurants"
+  puts "\n\n".white_on_blue
+  puts "\n"
+  puts "You selected top 10 restaurants".center(85).white_on_magenta
+  puts "\n"
+
   best_rest_name = top_restaurant_name.map do |restaurant|
     # binding.pry
     if restaurant.location.downcase == $location
@@ -121,15 +138,17 @@ def top_10
     end
   end
   puts best_rest_name.compact.last(10)
+  puts "\n"
+  puts "\n\n".white_on_blue
 end
 
 
 def cuisine
-  puts "You selected cuisine; please select one of the following numbers:"
-  puts "1 - American"
-  puts "2 - Mexican"
-  puts "3 - Japanese"
-  puts "4 - Italian"
+  puts "You selected cuisine; please select one of the following numbers:".center(85).green
+  puts "1 - American".center(85).green
+  puts "2 - Mexican".center(85).green
+  puts "3 - Japanese".center(85).green
+  puts "4 - Italian".center(85).green
   cuisine_choice = gets.chomp.to_i
   if cuisine_choice == 1
     cuisine_selection = "American"
@@ -146,33 +165,37 @@ def cuisine
   end ##### This iterator should work for all below cases #####
   case cuisine_choice.to_i
   when 1
-      puts "Random American restaurant: "
-      puts "#{cuisine_random.sample.name}"
+      puts "Random American restaurant: ".center(85).cyan
+      puts "#{cuisine_random.sample.name}".center(85).cyan
       # Add a save function
     when 2
-      puts "Random Mexican restaurant: "
-      puts "#{cuisine_random.sample.name}"
+      puts "Random Mexican restaurant: ".center(85).cyan
+      puts "#{cuisine_random.sample.name}".center(85).cyan
       # Add a save function
     when 3
-      puts "Random Japanese restaurant: "
-      puts "#{cuisine_random.sample.name}"
+      puts "Random Japanese restaurant: ".center(85).cyan
+      puts "#{cuisine_random.sample.name}".center(85).cyan
       # Add a save function
     when 4
-      puts "Random Italian restaurant: "
-      puts "#{cuisine_random.sample.name}"
+      puts "Random Italian restaurant: ".center(85).cyan
+      puts "#{cuisine_random.sample.name}".center(85).cyan
       # Add a save function
     else
-      puts "Please enter a valid selection"
+      puts "\n".center(85).white_on_red
+      print "Please enter a valid selection".center(85).white_on_red
+      puts "\n".center(85).white_on_red
       cuisine
   end
 end
 
 ### Tested and working w/o db ###
 def price
-  puts "You selected price; please select your price bracket:"
-  puts "1 - Budget"
-  puts "2 - Mid-level"
-  puts "3 - Extravavant"
+  puts "\n".white_on_magenta
+  print "You selected price; please select your price bracket:".center(85).white_on_magenta
+  puts "\n".white_on_magenta
+  puts "1 - Budget".center(85).magenta
+  puts "2 - Mid-level".center(85).magenta
+  puts "3 - Extravavant".center(85).magenta
   price_range = gets.chomp
   price_random = Restaurants.all.select do |restaurant|
     restaurant if restaurant.price.length == price_range.to_i
@@ -180,16 +203,24 @@ def price
   $restaurant_selection = price_random.sample.name
   case price_range
   when "1"
-      puts "You selected budget restaurants"
-      puts "#{$restaurant_selection}"
+      print "You selected budget restaurants:".center(85).magenta
+      puts "\n\n"
+      puts "#{$restaurant_selection}".center(85).cyan_on_red
+      puts "\n"
     when "2"
-      puts "You selected moderately priced restaurants"
-      puts "#{$restaurant_selection}"
+      print "You selected moderately priced restaurants:".center(85).magenta
+      puts "\n\n"
+      puts "#{$restaurant_selection}".center(85).cyan_on_red
+      puts "\n"
     when "3"
-      puts "You selected expensive restaurants"
-      puts "#{$restaurant_selection}"
+      print "You selected expensive restaurants:".center(85).magenta
+      puts "\n\n"
+      puts "#{$restaurant_selection}".center(85).cyan_on_red
+      puts "\n"
     else
-      puts "Please enter a valid price range:"
+      puts "\n".white_on_red
+      print "Please enter a valid price range:".center(85).white_on_red
+      puts "\n".white_on_red
       price
   end
 end
