@@ -10,19 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_231010) do
+ActiveRecord::Schema.define(version: 2019_05_09_012856) do
 
-  create_table "cities", force: :cascade do |t|
-    t.text "name"
-  end
-
-  create_table "restaurants", force: :cascade do |t|
+  create_table "city_rests", force: :cascade do |t|
     t.text "name"
     t.text "location"
-    t.text "cuisine"
     t.text "price"
     t.text "rating"
+    t.text "cuisine"
   end
+
+  create_table "favorites", force: :cascade do |t|
+    t.text "name"
+    t.text "location"
+    t.text "price"
+    t.text "rating"
+    t.text "cuisine"
+    t.integer "city_rest_id"
+    t.integer "user_id"
+    t.index ["city_rest_id"], name: "index_favorites_on_city_rest_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+# Could not dump table "restaurants" because of following StandardError
+#   Unknown type '' for column 'name'
 
   create_table "users", force: :cascade do |t|
     t.text "name"

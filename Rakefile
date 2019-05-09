@@ -19,7 +19,7 @@ task :process_csv do
     csv_text = File.read("restaurants.csv")
     csv =  CSV.parse(csv_text, :headers => true)
   csv.each do |row|
-    db.execute("INSERT INTO restaurants (
+    db.execute("INSERT INTO city_rests (
       name,
       location,
       cuisine,

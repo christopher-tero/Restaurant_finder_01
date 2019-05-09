@@ -1,11 +1,11 @@
-class RestaurantsTable < ActiveRecord::Migration[5.2]
+class CityRestTable < ActiveRecord::Migration[5.2]
   def change
-    create_table :restaurants do |t|
+    create_table :city_rests do |t|
       t.text :name
       t.text :location
-      t.text :cuisine
       t.text :price
       t.text :rating
+      t.text :cuisine
     end
   end
 end
