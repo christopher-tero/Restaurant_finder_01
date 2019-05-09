@@ -4,12 +4,13 @@ require 'pry'
 
 def intro
   puts `clear`
-  puts "".center(236).white_on_blue
-  print "Welcome to Restaurant Sleuth!".center(118).white_on_blue
-  puts "".center(236).white_on_blue
+  puts "\n\n\n\n\n\n\n\n\n\n"
+  puts "".center(236).black_on_green
+  print "Welcome to Restaurant Sleuth!".center(118).black_on_green
+  puts "".center(236).black_on_green
   sleep 1
-  print " Please enter your city:".center(118).white_on_blue
-  puts "".center(236).white_on_blue
+  print " Please enter your city:".center(118).black_on_green
+  puts "".center(236).black_on_green
 end
 
 def available_cities
@@ -20,9 +21,9 @@ def available_cities
 end
 
 def invalid_selection
-  puts "\n".white_on_red
-  print "Please enter a valid selection".center(118).red
-  puts "\n".white_on_red
+  puts "\n"
+  puts "Please enter a valid selection".center(118).white_on_red
+  puts "\n"
   sleep 1
 end
 
@@ -39,9 +40,9 @@ def city_selector
       sleep 2
     end
     puts `clear`
-    puts "\n".white_on_green
-    print "We have selections in your city!".center(118).green
-    puts "\n".white_on_green
+    puts "\n\n\n\n\n\n"
+    print "Get ready for some crazy random restaurants in #{$location}!".center(118).green
+    puts "\n\n\n\n\n\n"
     sleep 0.7
   else
     if $location == "exit"
@@ -149,14 +150,14 @@ end
 
 def top_10
   puts "\n".white_on_green
-  print "You selected top 10 restaurants for your city".center(118).green
+  print "You selected top 10 restaurants for #{$location.capitalize}".center(118).green
   puts "\n".white_on_green
   puts ""
   best_rest_name = top_restaurant_name.select do |restaurant|
     restaurant.location.downcase == $location
   end
   best_rest_name.last(10).each do |restaurant|
-    puts "#{restaurant.name}".center(118).green
+    puts "#{restaurant.name}".center(118).magenta
   end
   puts "\n"
   end_of_method
@@ -214,14 +215,13 @@ end
 
 def price
   puts "\n\n\n\n\n"
-  puts "".center(236).white_on_green
   print "You selected price; please select your price bracket:".center(118).green
-  puts "".center(236).white_on_green
   puts "\n\n"
-  puts "1 - Budget     ".center(118).green
-  puts "2 - Mid-level  ".center(118).green
-  puts "3 - Extravagant".center(118).green
-  puts "exit".center(118).green
+  puts "1 - Budget($)       ".center(118).green
+  puts "2 - Mid-level($$)   ".center(118).green
+  puts "3 - Extravagant($$$)".center(118).green
+  puts ""
+  puts "exit   ".center(118).green
   puts ""
   price_range = gets.chomp
   puts ""
@@ -231,15 +231,18 @@ def price
   restaurant_selection = price_random.sample
   case price_range
   when "1"
-    puts "You selected budget restaurants".center(118).green
+    puts "You selected Budget($) restaurants".center(118).green
+    puts ""
     puts "name: #{restaurant_selection.name}, rating: #{restaurant_selection.rating}".center(118).red
     add_to_favorite($name, restaurant_selection)
   when "2"
-    puts "You selected moderately priced restaurants".center(118).green
+    puts "You selected Moderately($$) priced restaurants".center(118).green
+    puts ""
     puts "name: #{restaurant_selection.name}, rating: #{restaurant_selection.rating}".center(118).red
     add_to_favorite($name, restaurant_selection)
   when "3"
-    puts "You selected expensive restaurants".center(118).green
+    puts "You selected Extravagant($$$) restaurants".center(118).green
+    puts ""
     puts "name: #{restaurant_selection.name}, rating: #{restaurant_selection.rating}".center(118).red
     add_to_favorite($name, restaurant_selection)
   when "exit"
@@ -253,10 +256,8 @@ end
 
 def rating
   puts "\n\n\n\n\n"
-  puts "".center(236).white_on_green
   puts "You selected rating; please select 3, 4, or 5 stars!".center(118).green
-  puts "".center(236).white_on_green
-  puts ""
+  puts "\n\n"
   rating_selection = gets.chomp
   puts ""
   stars_random = CityRest.all.select do |restaurant|
@@ -267,14 +268,17 @@ def rating
   case rating_selection
   when "3"
     puts "Three star restaurant:".center(118).green
+    puts ""
     puts "name: #{rando.name}, price:#{rando.price}".center(118).red
     add_to_favorite($name, rando)
   when "4"
     puts "Four star restaurant:".center(118).green
+    puts ""
     puts "name: #{rando.name}, price:#{rando.price}".center(118).red
     add_to_favorite($name, rando)
   when "5"
     puts "Five star restaurant:".center(118).green
+    puts ""
     puts "name: #{rando.name}, price:#{rando.price}".center(118).red
     add_to_favorite($name, rando)
   when "exit"
@@ -291,9 +295,10 @@ def city_restaurants
     restaurant.location.downcase == $location
   end
   city_rando = rando.sample
-  puts "name: #{city_rando.name}, price: #{city_rando.price}, rating: #{city_rando.rating}"
-  # puts "Would you like to save to favorites?"
-  # answer = gets.chomp.downcase
+  puts "\n\n\n\n\n"
+  puts "Your randomly selected dinning option below!".center(118).green
+  puts ""
+  puts "name: #{city_rando.name}, price: #{city_rando.price}, rating: #{city_rando.rating}".center(118).red
   add_to_favorite($name, city_rando)
 end
 
@@ -305,6 +310,7 @@ def add_to_favorite(name, rando_cuisine)
   if answer == "yes"
     puts "Adding #{rando_cuisine.name} to your favorite list.".center(118).green
     puts ""
+    sleep 2
     user = User.find_by(name: $name)
     user_id = user.id
     name_id = rando_cuisine.name
@@ -312,8 +318,10 @@ def add_to_favorite(name, rando_cuisine)
     price_id = rando_cuisine.price
     rating_id = rando_cuisine.rating
     cuisine_id = rando_cuisine.cuisine
-    Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, user_id: user_id )
-    puts "#{rando_cuisine.name} has been added to your favorites!".center(118).green
+    Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, user_id: user_id)
+    puts `clear`
+    puts "\n\n\n\n\n"
+    puts "#{rando_cuisine.name} has been added to your favorites!".center(118).magenta
     end_of_method
   elsif answer == "no"
     end_of_method
@@ -321,20 +329,22 @@ def add_to_favorite(name, rando_cuisine)
 end
 
 def view_favorites
-  puts "Here are all your favorites:"
+  puts "\n\n\n\n\n\n"
+  puts "Here are all your favorites:".center(118).green
+  puts ""
   user_id = User.find_by(name: $name).id
   list = Favorite.all.select do |restaurant|
     restaurant.user_id == user_id
   end
   list.each do |restaurant|
-    puts "name: #{restaurant.name}, location: #{restaurant.location}, cuisine: #{restaurant.cuisine}, price: #{restaurant.price}, rating: #{restaurant.rating}"
-    end_of_method
+    puts "name: #{restaurant.name}, location: #{restaurant.location}, cuisine: #{restaurant.cuisine}, price: #{restaurant.price}, rating: #{restaurant.rating}".center(118).magenta
   end
+  end_of_method
 end
 
 def end_of_method
   puts "\n".white_on_blue
-  print "Thank you for using Restaurant Sleuth! Make another selection or exit?".center(118).white_on_blue
+  puts "Make another selection or exit?".center(118).green
   puts "\n".white_on_blue
   puts ""
   puts "1 - Make another selection".center(118).green
@@ -347,7 +357,9 @@ def end_of_method
     main_menu
   when "exit"
     puts "\n".white_on_green
-    print "See you soon!".center(118).green
+    puts "Thank you for using Restaurant Sleuth!".center(118).green
+    puts "\n\n"
+    puts "See you soon!".center(118).green
     puts "\n".white_on_green
     puts "\n"
     sleep 1
