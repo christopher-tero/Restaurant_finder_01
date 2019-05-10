@@ -30,6 +30,24 @@ This selection will choose a restaurant for the user at complete random, regardl
 
 This selection will return the users saved restaurants for all locations.
 
+
+# Walk Through #
+Welcome screen:
+https://imgur.com/5lgGZib
+
+enter username or if new create a new user account:
+https://imgur.com/Wmcq6Ui
+
+main menu options:
+https://imgur.com/k0baeTU
+
+randomly generated restaurant based on main menu selection
+https://imgur.com/7auzeUi
+
+end of program and confirmation that restaurant had been added.
+https://imgur.com/G0R7V5H
+
+
 ### AUTHORS ###
 
 - Alex Hare
