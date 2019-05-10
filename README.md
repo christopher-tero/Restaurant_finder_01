@@ -33,8 +33,7 @@ This selection will return the users saved restaurants for all locations.
 
 # Walk Through #
 
-Welcome screen:
-(https://i.imgur.com/5lgGZib.png)
+![Welcome screen:](https://i.imgur.com/5lgGZib.png)
 
 enter username or if new create a new user account:
 (https://i.imgur.com/Wmcq6Ui.png)
