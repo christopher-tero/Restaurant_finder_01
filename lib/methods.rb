@@ -6,12 +6,12 @@ def intro
   loading_2
   puts `clear`
   puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-  puts "".center(236).black_on_green
-  print "Welcome to Restaurant Sleuth!".center(118).black_on_green
-  puts "".center(236).black_on_green
+  puts "".center(236).white_on_green
+  print "Welcome to Restaurant Sleuth!".center(118).white_on_green
+  puts "".center(236).white_on_green
   sleep 1
-  print " Please enter your city:".center(118).black_on_green
-  puts "".center(236).black_on_green
+  print " Please enter your city:".center(118).white_on_green
+  puts "".center(236).white_on_green
   puts "\n\n"
 end
 
@@ -40,16 +40,15 @@ def city_selector
     elsif $location == "denver"
       den_ascii_2
     end
-    sleep 5
+    sleep 4
     puts `clear`
     puts "\n\n\n\n\n\n\n\n\n\n"
     print "Get ready for some crazy random restaurants in #{$location.capitalize}!".center(118).green
     puts "\n\n"
     sleep 0.7
-  else
-    if $location == "exit"
+  elsif $location == "exit"
       exit_program
-    end
+  else
     puts "\n\n"
     print "Sorry we are not available in your area yet. Enter another city or exit:".center(118).white_on_red
     puts "\n\n"
@@ -305,18 +304,24 @@ def add_to_favorite(name, rando_cuisine)
     puts "Adding #{rando_cuisine.name} to your favorite list.".center(118).green
     puts ""
     sleep 2
-    user = User.find_by(name: $name)
-    user_id = user.id
-    name_id = rando_cuisine.name
-    location_id = rando_cuisine.location
-    price_id = rando_cuisine.price
-    rating_id = rando_cuisine.rating
-    cuisine_id = rando_cuisine.cuisine
-    Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, user_id: user_id)
-    puts `clear`
-    puts "\n\n\n\n\n\n\n\n\n\n"
-    puts "#{rando_cuisine.name} has been added to your favorites!".center(118).magenta
-    end_of_method
+    # if view_favorites.include?(rando_cuisine.id)
+    #   puts "This is already in your favorites list!"
+    #   view_favorites
+    # else
+      user = User.find_by(name: $name)
+      user_id = user.id
+      # city_rest_id = rando_cuisine.id
+      name_id = rando_cuisine.name
+      location_id = rando_cuisine.location
+      price_id = rando_cuisine.price
+      rating_id = rando_cuisine.rating
+      cuisine_id = rando_cuisine.cuisine
+      Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, user_id: user_id)
+      puts `clear`
+      puts "\n\n\n\n\n\n\n\n\n\n"
+      puts "#{rando_cuisine.name} has been added to your favorites!".center(118).magenta
+      end_of_method
+    #end
   elsif answer == "no"
     end_of_method
   end
@@ -330,9 +335,11 @@ def view_favorites
   list = Favorite.all.select do |restaurant|
     restaurant.user_id == user_id
   end
-  list.each do |restaurant|
-    puts "name: #{restaurant.name}, location: #{restaurant.location}, cuisine: #{restaurant.cuisine}, price: #{restaurant.price}, rating: #{restaurant.rating}".center(118).magenta
+  list2 = list.map do |restaurant|
+    "name: #{restaurant.name}, location: #{restaurant.location}, cuisine: #{restaurant.cuisine}, price: #{restaurant.price}, rating: #{restaurant.rating}".center(118).magenta
   end
+  puts list2.uniq
+  #binding.pry
   end_of_method
 end
 
