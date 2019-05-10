@@ -297,7 +297,7 @@ end
 
 def add_to_favorite(name, rando_cuisine)
   puts ""
-  puts "Would you like to save to favorites?".center(118).green
+  puts "Would you like to save to favorites? Please enter 'yes' or 'no'.".center(118).green
   puts ""
   answer = gets.chomp.downcase
   if answer == "yes"
@@ -375,6 +375,8 @@ def end_of_method
   case end_select
   when "1"
     puts "\n\n\n\n\n\n\n\n\n\n"
+    puts "What would you like to do next #{$name}?".center(118).green
+    puts ""
     main_menu
   when "exit"
     exit_program
