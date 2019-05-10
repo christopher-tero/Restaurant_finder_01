@@ -23,7 +23,8 @@ def available_cities
 end
 
 def invalid_selection
-  puts "\n\n"
+  puts `clear`
+  puts "\n\n\n\n\n\n\n\n\n\n"
   puts "Please enter a valid selection".center(118).white_on_red
   puts "\n\n"
   sleep 1
@@ -49,7 +50,8 @@ def city_selector
   elsif $location == "exit"
       exit_program
   else
-    puts "\n\n"
+    puts `clear`
+    puts "\n\n\n\n\n\n\n\n\n\n"
     print "Sorry we are not available in your area yet. Enter another city or exit:".center(118).white_on_red
     puts "\n\n"
     city_selector
