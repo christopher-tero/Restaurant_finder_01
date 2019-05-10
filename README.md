@@ -34,20 +34,19 @@ This selection will return the users saved restaurants for all locations.
 # Walk Through #
 
 Welcome screen:
-(https://imgur.com/5lgGZib)
+(https://i.imgur.com/5lgGZib.png)
 
 enter username or if new create a new user account:
-(https://imgur.com/Wmcq6Ui)
-
+(https://i.imgur.com/Wmcq6Ui.png)
 
 main menu options:
-https://imgur.com/k0baeTU
+(https://i.imgur.com/k0baeTU.png)
 
 randomly generated restaurant based on main menu selection:
-(https://imgur.com/7auzeUi)
+(https://i.imgur.com/7auzeUi.png)
 
 end of program and confirmation that restaurant had been added:
-(https://imgur.com/G0R7V5H)
+(https://i.imgur.com/G0R7V5H.png)
 
 
 ### AUTHORS ###
