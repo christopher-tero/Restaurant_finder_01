@@ -35,16 +35,16 @@ This selection will return the users saved restaurants for all locations.
 
 ![Welcome screen:](https://i.imgur.com/5lgGZib.png)
 
-enter username or if new create a new user account:
+![enter username or if new create a new user account:]
 (https://i.imgur.com/Wmcq6Ui.png)
 
-main menu options:
+![main menu options:]
 (https://i.imgur.com/k0baeTU.png)
 
-randomly generated restaurant based on main menu selection:
+![randomly generated restaurant based on main menu selection:]
 (https://i.imgur.com/7auzeUi.png)
 
-end of program and confirmation that restaurant had been added:
+![end of program and confirmation that restaurant had been added:]
 (https://i.imgur.com/G0R7V5H.png)
 
 
