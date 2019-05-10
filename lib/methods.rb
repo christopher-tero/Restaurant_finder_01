@@ -328,6 +328,9 @@ def add_to_favorite(name, rando_cuisine)
     end
   elsif answer == "no"
     end_of_method
+  else
+    invalid_selection
+    add_to_favorite(name, rando_cuisine)
   end
 end
 
