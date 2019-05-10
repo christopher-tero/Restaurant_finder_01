@@ -296,7 +296,7 @@ def city_restaurants
 end
 
 def add_to_favorite(name, rando_cuisine)
-  puts "\n\n"
+  puts ""
   puts "Would you like to save to favorites?".center(118).green
   puts ""
   answer = gets.chomp.downcase
@@ -304,24 +304,28 @@ def add_to_favorite(name, rando_cuisine)
     puts "Adding #{rando_cuisine.name} to your favorite list.".center(118).green
     puts ""
     sleep 2
-    # if view_favorites.include?(rando_cuisine.id)
-    #   puts "This is already in your favorites list!"
-    #   view_favorites
-    # else
+    user_id = User.find_by(name: $name).id
+    list = Favorite.all.select do |restaurant|
+      restaurant.user_id == user_id
+    end
+    if list.any? {|restaurant| restaurant[:city_rest_id] == rando_cuisine.id}
+      puts "This is already in your favorites list!".center(118).white_on_red
+      view_favorites
+    else
       user = User.find_by(name: $name)
       user_id = user.id
-      # city_rest_id = rando_cuisine.id
+      city_rest_id = rando_cuisine.id
       name_id = rando_cuisine.name
       location_id = rando_cuisine.location
       price_id = rando_cuisine.price
       rating_id = rando_cuisine.rating
       cuisine_id = rando_cuisine.cuisine
-      Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, user_id: user_id)
+      Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, city_rest_id: city_rest_id, user_id: user_id)
       puts `clear`
-      puts "\n\n\n\n\n\n\n\n\n\n"
+      puts "\n\n\n\n\n"
       puts "#{rando_cuisine.name} has been added to your favorites!".center(118).magenta
       end_of_method
-    #end
+    end
   elsif answer == "no"
     end_of_method
   end
