@@ -6,12 +6,12 @@ def intro
   loading_2
   puts `clear`
   puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-  puts "".center(236).white_on_green
-  print "Welcome to Restaurant Sleuth!".center(118).white_on_green
-  puts "".center(236).white_on_green
+  puts "".center(236).blue_on_green
+  print "Welcome to Restaurant Sleuth!".center(118).blue_on_green
+  puts "".center(236).blue_on_green
   sleep 1
-  print " Please enter your city:".center(118).white_on_green
-  puts "".center(236).white_on_green
+  print " Please enter your city:".center(118).blue_on_green
+  puts "".center(236).blue_on_green
   puts "\n\n"
 end
 
@@ -34,7 +34,7 @@ def city_selector
   puts "\n\n"
   if available_cities.include?($location)
     puts `clear`
-    puts "\n"
+    puts "\n\n\n"
     if $location == "new york"
       nyc_ascii
     elsif $location == "denver"
@@ -112,6 +112,7 @@ def main_menu
   puts "4 - Select a rating bracket ".center(118).green
   puts "5 - Completely Random       ".center(118).green
   puts "6 - My favorites            ".center(118).green
+  puts ""
   puts "exit".center(118).green
   puts "\n\n"
   selection = gets.chomp
@@ -185,18 +186,22 @@ def cuisine
   case cuisine_choice.to_i
   when 1
     puts "Random American restaurant: ".center(118).green
+    puts ""
     puts "name: #{rando_cuisine.name}, price: #{rando_cuisine.price}, rating: #{rando_cuisine.rating}".center(118).red
     add_to_favorite($name, rando_cuisine)
   when 2
     puts "Random Mexican restaurant: ".center(118).green
+    puts ""
     puts "name: #{rando_cuisine.name}, price: #{rando_cuisine.price}, rating: #{rando_cuisine.rating}".center(118).red
     add_to_favorite($name, rando_cuisine)
   when 3
     puts "Random Japanese restaurant: ".center(118).green
+    puts ""
     puts "name: #{rando_cuisine.name}, price: #{rando_cuisine.price}, rating: #{rando_cuisine.rating}".center(118).red
     add_to_favorite($name, rando_cuisine)
   when 4
     puts "Random Italian restaurant: ".center(118).green
+    puts ""
     puts "name: #{rando_cuisine.name}, price: #{rando_cuisine.price}, rating: #{rando_cuisine.rating}".center(118).red
     add_to_favorite($name, rando_cuisine)
   else
@@ -289,7 +294,7 @@ def city_restaurants
   end
   city_rando = rando.sample
   puts "\n\n\n\n\n\n\n\n\n\n"
-  puts "Your randomly selected dinning option below!".center(118).green
+  puts "Your randomly selected dinning option in #{$location} below!".center(118).green
   puts ""
   puts "name: #{city_rando.name}, price: #{city_rando.price}, rating: #{city_rando.rating}".center(118).red
   add_to_favorite($name, city_rando)
@@ -309,6 +314,8 @@ def add_to_favorite(name, rando_cuisine)
       restaurant.user_id == user_id
     end
     if list.any? {|restaurant| restaurant[:city_rest_id] == rando_cuisine.id}
+      puts `clear`
+      puts "\n"
       puts "This is already in your favorites list!".center(118).white_on_red
       view_favorites
     else
@@ -322,11 +329,13 @@ def add_to_favorite(name, rando_cuisine)
       cuisine_id = rando_cuisine.cuisine
       Favorite.create(name: name_id, location: location_id, price: price_id, rating: rating_id, cuisine: cuisine_id, city_rest_id: city_rest_id, user_id: user_id)
       puts `clear`
-      puts "\n\n\n\n\n"
+      puts "\n\n\n\n\n\n\n\n\n\n"
       puts "#{rando_cuisine.name} has been added to your favorites!".center(118).magenta
       end_of_method
     end
   elsif answer == "no"
+    puts `clear`
+    puts "\n\n\n\n\n\n\n\n"
     end_of_method
   else
     invalid_selection
